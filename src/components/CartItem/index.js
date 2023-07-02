@@ -1,12 +1,23 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-export default function CartItem({ data, addAmount }) {
+export default function CartItem({ data, addAmount, removeAmount }) {
   const [amount, setAmount] = useState(data?.amount);
 
   function handleIncrease() {
     addAmount();
     setAmount((item) => item + 1);
+  }
+
+  function handleDecrease() {
+    removeAmount();
+
+    if (amount === 0) {
+      setAmount(0);
+      return;
+    }
+
+    setAmount((item) => item - 1);
   }
 
   return (
@@ -17,7 +28,7 @@ export default function CartItem({ data, addAmount }) {
       </View>
 
       <View style={styles.amountContainer}>
-        <TouchableOpacity style={styles.buttonAdd}>
+        <TouchableOpacity style={styles.buttonAdd} onPress={handleDecrease}>
           <Text>-</Text>
         </TouchableOpacity>
 

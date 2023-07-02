@@ -4,7 +4,7 @@ import { CartContext } from '../../context/CartContext';
 import CartItem from '../../components/CartItem';
 
 export default function Cart() {
-  const { cart, addItemCart } = useContext(CartContext);
+  const { cart, addItemCart, removeItemCart } = useContext(CartContext);
 
   return (
     <View style={styles.container}>
@@ -12,8 +12,13 @@ export default function Cart() {
         data={cart}
         showsVerticalScrollIndicator={false}
         keyExtractor={(item) => String(item.id)}
+        ListEmptyComponent={() => <Text>Nenhum item no carrinho...</Text>}
         renderItem={({ item }) => (
-          <CartItem data={item} addAmount={() => addItemCart(item)} />
+          <CartItem
+            data={item}
+            addAmount={() => addItemCart(item)}
+            removeAmount={() => removeItemCart(item)}
+          />
         )}
       />
     </View>
