@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   FlatList,
   SafeAreaView,
@@ -10,8 +10,11 @@ import {
 import { Feather } from '@expo/vector-icons';
 import Product from '../../components/Product';
 import { useNavigation } from '@react-navigation/native';
+import { CartContext } from '../../context/CartContext';
 
 export default function Home() {
+  const { cart } = useContext(CartContext);
+
   const navigation = useNavigation();
 
   const [products, setProducts] = useState([
@@ -32,7 +35,7 @@ export default function Home() {
           onPress={() => navigation.navigate('Cart')}
         >
           <View style={styles.dot}>
-            <Text style={styles.dotText}>3</Text>
+            <Text style={styles.dotText}>{cart?.length}</Text>
           </View>
 
           <Feather name="shopping-cart" size={30} color="#000" />
